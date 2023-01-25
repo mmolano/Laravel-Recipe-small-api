@@ -5,9 +5,9 @@ namespace App\Http\Middleware;
 use App\Facades\ErrorHandler;
 use App\Models\Authenticate;
 use Closure;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
 class AuthApi
@@ -26,15 +26,15 @@ class AuthApi
         return false;
     }
 
-    public function handle(Request $request, Closure $next): Response|RedirectResponse
+    public function handle(Request $request, Closure $next): JsonResponse|RedirectResponse
     {
         if (!$request->bearerToken()) {
-            ErrorHandler::write(1, true);
+            return ErrorHandler::write(1, true);
         } elseif (!$consumer = Authenticate::where('token', $request->bearerToken())
             ->first()) {
-            ErrorHandler::write(2, true);
+            return ErrorHandler::write(2, true);
         } elseif (!$this->checkRoute($consumer)) {
-            ErrorHandler::write(3, true);
+            return ErrorHandler::write(3, true);
         }
         return $next($request);
     }

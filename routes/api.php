@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group([
-    'prefix' => '/api/v1.0',
+    'prefix' => 'v1.0',
 ], function () {
     include 'versioning/v1.0.php';
 });

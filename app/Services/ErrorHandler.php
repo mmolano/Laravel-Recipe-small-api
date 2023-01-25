@@ -46,9 +46,9 @@ class ErrorHandler
     public function write(int $code, bool $generalError = false): JsonResponse
     {
         if ($generalError && isset($this->generalErrorCodes[$code])) {
-            $error = $this->generalErrorCodes['code'];
+            $error = $this->generalErrorCodes[$code];
         } elseif ($this->customError && isset($this->customError['code'])) {
-            $error = $this->customError['code'];
+            $error = $this->customError[$code];
         } elseif (isset($error) && $error['log']) {
             $this->log($code, $error['log']);
         } else {
@@ -64,9 +64,9 @@ class ErrorHandler
 
         return response()->json([
             'code' => $code,
-            'handlerCode' => 200,
+            'handlerCode' => $error['status'],
             'message' => $error['message'],
             'is_general' => $generalError,
-        ]);
+        ], $error['status']);
     }
 }

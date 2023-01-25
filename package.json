@@ -3,7 +3,9 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "phpcs": "./vendor/bin/phpcs"
+        "phpcs": "./vendor/bin/phpcs",
+        "phpUnit": "./vendor/bin/phpunit",
+        "cleaner": "npm run phpcs && npm run phpUnit"
     },
     "devDependencies": {
         "axios": "^1.1.2",
