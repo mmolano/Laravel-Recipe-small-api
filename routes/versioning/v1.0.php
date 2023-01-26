@@ -9,5 +9,5 @@ Route::get('/apiCheck', [AuthCheckerController::class, 'isAlive']);
 Route::group([
     'middleware' => AuthApi::class,
 ], function () {
-    Route::get('/authCheck', [AuthCheckerController::class, 'isAllowed']);
+    Route::get('/authCheck', [AuthCheckerController::class, 'isAllowed'])->name('GET/authCheck');
 });
