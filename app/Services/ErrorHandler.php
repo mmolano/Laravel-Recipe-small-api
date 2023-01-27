@@ -13,12 +13,12 @@ class ErrorHandler
         1 => [
             'message' => 'Empty Token',
             'status' => 400,
-            'log' => 'Request error #1'
+            'log' => 'No token provided'
         ],
         2 => [
             'message' => 'Bad Token',
             'status' => 401,
-            'log' => 'Request error #2'
+            'log' => 'The access token is incorrect'
         ],
         3 => [
             'message' => 'Unauthorized',
@@ -28,7 +28,7 @@ class ErrorHandler
     ];
 
 
-    public function setCustom(array $tempError): void
+    public function setCustom(array $tempError, array $errors): void
     {
         $this->errorPath = $tempError['path'];
         $this->customError = $tempError;

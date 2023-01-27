@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @method static get(mixed $value)
+ * @method static where(mixed $value, mixed $value)
+ * @method static create(array $array)
+ */
 class Recipe extends Model
 {
     use HasFactory;
@@ -22,13 +27,14 @@ class Recipe extends Model
         'foodCountry'
     ];
 
+    public function type(): HasMany
+    {
+        return $this->hasMany(FoodType::class, 'recipeId');
+    }
+
     public function rating(): HasMany
     {
         return $this->hasMany(Rating::class, 'recipeId');
     }
 
-    public function foodType(): HasMany
-    {
-        return $this->hasMany(FoodType::class, 'recipeId');
-    }
 }
