@@ -13,7 +13,7 @@ class RecipeController extends Controller
     public function __construct()
     {
         ErrorHandler::setCustom([
-            'Path' => class_basename(self::class),
+            'path' => class_basename(self::class),
         ], [
             1 => [
                 'message' => 'Request could not find recipe',

@@ -11,11 +11,17 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('food_type_migration', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('FoodType', function (Blueprint $table) {
+            $table->bigIncrements('id')
+                ->autoIncrement();
+            $table->integer('type');
+            $table->integer('recipeId');
+            $table->timestamp('created_at')
+                ->useCurrent();
+            $table->timestamp('updated_at')
+                ->useCurrent();
         });
     }
 

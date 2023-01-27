@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
  */
 class AuthenticateFactory extends Factory
 {
-    protected $model = Authenticate::Class;
+    protected $model = Authenticate::class;
 
     public function definition(): array
     {

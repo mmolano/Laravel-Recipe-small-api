@@ -26,7 +26,14 @@ class AuthApi
         return false;
     }
 
-    public function handle(Request $request, Closure $next): JsonResponse|RedirectResponse
+    /**
+     * Handle an incoming request.
+     *
+     * @param Request $request
+     * @param Closure $next
+     * @return mixed
+     */
+    public function handle(Request $request, Closure $next): mixed
     {
         if (!$request->bearerToken()) {
             return ErrorHandler::write(1, true);

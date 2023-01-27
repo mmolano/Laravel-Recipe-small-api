@@ -12,11 +12,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('Rating', function (Blueprint $table) {
+        Schema::create('recipe', function (Blueprint $table) {
             $table->bigIncrements('id')
                 ->autoIncrement();
-            $table->integer('stars');
-            $table->integer('recipeId');
+            $table->string('name');
+            $table->string('difficultyType');
+            $table->integer('timeToPrepare');
+            $table->text('ingredients');
+            $table->text('videoLink');
+            $table->text('foodCountry');
             $table->timestamp('created_at')
                 ->useCurrent();
             $table->timestamp('updated_at')
@@ -29,8 +33,8 @@ return new class extends Migration {
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('rating');
+        Schema::dropIfExists('recipe');
     }
 };

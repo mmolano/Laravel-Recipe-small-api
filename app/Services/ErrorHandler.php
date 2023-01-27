@@ -31,7 +31,7 @@ class ErrorHandler
     public function setCustom(array $tempError, array $errors): void
     {
         $this->errorPath = $tempError['path'];
-        $this->customError = $tempError;
+        $this->customError = $errors;
     }
 
     private function log(int $code, string $message): void

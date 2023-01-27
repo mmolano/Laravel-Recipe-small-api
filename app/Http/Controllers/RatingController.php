@@ -13,7 +13,7 @@ class RatingController extends Controller
     public function __construct()
     {
         ErrorHandler::setCustom([
-            'Path' => class_basename(self::class),
+            'path' => class_basename(self::class),
         ], [
             1 => [
                 'message' => 'Could not find the recipe',
