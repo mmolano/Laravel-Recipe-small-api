@@ -12,7 +12,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('recipe', function (Blueprint $table) {
+        Schema::create('Recipe', function (Blueprint $table) {
             $table->bigIncrements('id')
                 ->autoIncrement();
             $table->string('name');

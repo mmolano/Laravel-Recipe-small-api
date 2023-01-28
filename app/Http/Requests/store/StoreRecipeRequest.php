@@ -2,7 +2,11 @@
 
 namespace App\Http\Requests\store;
 
+use App\Facades\ErrorHandler;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpFoundation\Response;
 
 class StoreRecipeRequest extends FormRequest
 {
@@ -13,7 +17,7 @@ class StoreRecipeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     //TODO: put a restriction on country to have a valid country
@@ -32,8 +36,16 @@ class StoreRecipeRequest extends FormRequest
             'ingredients' => ['required', 'string'],
             'videoLink' => ['string'],
             'foodCountry' => ['string'],
-            'type' => StoreFoodTypeRequest::class,
-            'stars' => StoreRatingRequest::class
+            'stars' => (new StoreRatingRequest())->rules()['stars'],
+            'type' => (new StoreFoodTypeRequest())->rules()['type'],
         ];
+    }
+
+    /*
+     * The Error is returned in the catch function. This function must exist
+     * */
+    public function failedValidation(Validator $validator): string
+    {
+        return '';
     }
 }

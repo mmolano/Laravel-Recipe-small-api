@@ -3,9 +3,11 @@
 namespace Tests;
 
 use App\Models\Authenticate;
+use App\Models\Recipe;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 use Illuminate\Testing\TestResponse;
 
@@ -31,6 +33,7 @@ abstract class TestCase extends BaseTestCase
             ])
         ]);
     }
+
     public function getWithAuth(string $url): TestResponse
     {
         $auth = $this->createAuth();
@@ -65,5 +68,28 @@ abstract class TestCase extends BaseTestCase
         return $this->delete($url, $params, [
             'Authorization' => 'Bearer ' . $auth->token
         ]);
+    }
+
+    public function createRecipe(): array
+    {
+        $recipe = [
+            'name' => $this->faker->name,
+            'difficultyType' => collect(['novice', 'medium', 'advanced'])->random(),
+            'timeToPrepare' => $this->faker->numberBetween(10, 60),
+            'ingredients' => 'tomato, salad, meat, milk',
+            'videoLink' => $this->faker->url,
+            'foodCountry' => $this->faker->countryCode,
+            'stars' => $this->faker->numberBetween(1, 5),
+            'type' => collect(['breakfast', 'main', 'dessert', 'salad', 'soup', 'side'])->random()
+        ];
+
+        return $this->postWithAuth('/api/v1.0/recipe', $recipe)->json();
+    }
+
+    public function checkRecipe(array $actual, array $response)
+    {
+        foreach ($actual as $key => $value) {
+            $this->assertEquals($value, $response[$key]);
+        }
     }
 }

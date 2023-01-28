@@ -16,11 +16,14 @@ Route::group([
     Route::get('/authCheck', [AuthCheckerController::class, 'isAllowed'])->name('GET/authCheck');
 
     Route::get('/recipe', [RecipeController::class, 'index'])->name('GET/recipe');
-    Route::post('/recipe', [RecipeController::class, 'index'])->name('POST/recipe');
+    Route::get('/recipe/{id}', [RecipeController::class, 'show'])->name('GET/recipe/{id}');
+    Route::put('/recipe/{id}', [RecipeController::class, 'update'])->name('PUT/recipe/{id}');
+    Route::post('/recipe', [RecipeController::class, 'store'])->name('POST/recipe');
 
     /** Only Admins routes TODO: make admin middleware */
     Route::get('/rating', [RatingController::class, 'index'])->name('GET/rating');
     Route::post('/rating', [RatingController::class, 'store'])->name('POST/rating');
+
     Route::get('/foodType', [FoodTypeController::class, 'index'])->name('GET/foodType');
     Route::post('/foodType', [FoodTypeController::class, 'store'])->name('POST/foodType');
 });
